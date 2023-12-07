@@ -1,4 +1,8 @@
-package pairmatching.domain;
+package pairmatching.domain.pair;
+
+import pairmatching.domain.Course;
+import pairmatching.domain.Level;
+import pairmatching.domain.Mission;
 
 public class PairKey {
     private final Course course;
