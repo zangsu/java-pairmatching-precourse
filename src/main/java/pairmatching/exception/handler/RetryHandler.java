@@ -11,6 +11,8 @@ import pairmatching.view.OutputView;
 public class RetryHandler{
     private static final OutputView outputView = new OutputView();
 
+    private RetryHandler(){}
+
     public static <T> T getOrRetry(Supplier<T> supplier){
         while(true){
             try{

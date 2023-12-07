@@ -24,12 +24,12 @@ public enum Level {
         this.missions = Arrays.asList(missions);
     }
 
-    public static Level from(String name){
+    public static Level from(String name) {
         return Optional.ofNullable(cachedLevel.get(name))
                 .orElseThrow(PairExceptionMaker.NO_SUCH_LEVEL::makeException);
     }
 
-    public Mission getMission(String missionName){
+    public Mission getMission(String missionName) {
         return missions.stream()
                 .filter(mission -> mission.isNameOf(missionName))
                 .findFirst()

@@ -7,15 +7,15 @@ public class OutputView {
     public static final String EXCEPTION_PREFIX = "[ERROR] ";
     private final Printer printer = new Printer();
 
-    public void printException(Exception e){
+    public void printException(Exception e) {
         printer.printMessage(EXCEPTION_PREFIX + e.getMessage());
     }
 
-    public void newLine(){
+    public void newLine() {
         printer.printMessage("");
     }
 
-    public void printMissions(){
+    public void printMissions() {
         printer.printMessage("#############################################\n"
                 + "과정: 백엔드 | 프론트엔드\n"
                 + "미션:\n"
@@ -26,6 +26,7 @@ public class OutputView {
                 + "  - 레벨5: \n"
                 + "############################################");
     }
+
     public void printPairs(Pairs pairs) {
         printer.printMessage("페어 매칭 결과입니다.");
         pairs.getPairNames().stream()

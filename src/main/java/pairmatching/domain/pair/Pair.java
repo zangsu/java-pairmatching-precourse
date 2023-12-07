@@ -7,8 +7,8 @@ import java.util.List;
 import pairmatching.exception.PairExceptionMaker;
 
 public class Pair {
-    public static final int MIN_CREW_SIZE = 2;
-    public static final int MAX_CREW_SIZE = 3;
+    public static final int MIN_PAIR_SIZE = 2;
+    public static final int MAX_PAIR_SIZE = 3;
     private final List<String> crewNames;
 
     public Pair(Collection<String> crewNames) {
@@ -17,7 +17,7 @@ public class Pair {
     }
 
     private void validateSize(Collection<String> crews) {
-        if (crews.size() < MIN_CREW_SIZE || crews.size() > MAX_CREW_SIZE) {
+        if (crews.size() < MIN_PAIR_SIZE || crews.size() > MAX_PAIR_SIZE) {
             throw PairExceptionMaker.INVALID_CREW_SIZE.makeException();
         }
     }

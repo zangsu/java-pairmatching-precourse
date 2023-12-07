@@ -1,22 +1,20 @@
 package pairmatching.context;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import pairmatching.domain.matcher.PairMatcher;
 import pairmatching.domain.menu.Menu;
-import pairmatching.domain.pair.Pair;
 import pairmatching.domain.pair.PairKey;
-import pairmatching.domain.pair.MatchedPairs;
 import pairmatching.domain.pair.Pairs;
 import pairmatching.exception.PairExceptionMaker;
 import pairmatching.exception.handler.RetryHandler;
+import pairmatching.repository.MatchedPairs;
 import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
 
 public class PairMatchingController {
-    public static final int MAX_REMATCH_COUNT = 3;
+    private static final int MAX_REMATCH_COUNT = 3;
     private final Map<Menu, Runnable> function = new HashMap<>();
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
@@ -49,7 +47,7 @@ public class PairMatchingController {
         outputView.printMissions();
         while (true) {
             PairKey pairKey = RetryHandler.getOrRetry(inputView::getPairKey);
-            if (MatchedPairs.notMatched(pairKey) || inputView.reMatch()) {
+            if (MatchedPairs.isNotMatched(pairKey) || inputView.reMatch()) {
                 retryMatching(pairKey);
                 outputView.printPairs(MatchedPairs.getPairs(pairKey));
                 return;

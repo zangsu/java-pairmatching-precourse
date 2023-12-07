@@ -1,6 +1,5 @@
 package pairmatching.domain;
 
-import pairmatching.context.PairMatchingController;
 import pairmatching.exception.PairExceptionMaker;
 
 public enum Course {

@@ -14,7 +14,7 @@ public class InputView {
     private final Reader reader = new Reader();
     private final Printer printer = new Printer();
 
-    public Menu getMenu(){
+    public Menu getMenu() {
         printer.printMessage("기능을 선택하세요.\n"
                 + "1. 페어 매칭\n"
                 + "2. 페어 조회\n"
@@ -23,13 +23,13 @@ public class InputView {
         return RetryHandler.getOrRetry(this::_getMenu);
     }
 
-    private Menu _getMenu(){
+    private Menu _getMenu() {
         Menu menu = Menu.from(reader.getString());
         printer.printMessage("");
         return menu;
     }
 
-    public PairKey getPairKey(){
+    public PairKey getPairKey() {
         return RetryHandler.getOrRetry(this::_getPairKey);
     }
 
@@ -38,7 +38,7 @@ public class InputView {
                 + "ex) 백엔드, 레벨1, 자동차경주");
         List<String> inputs = reader.getStringsUsingDelimiter(DELIMITER);
         printer.printMessage("");
-        if(inputs.size() != 3){
+        if (inputs.size() != 3) {
             throw PairExceptionMaker.INVALID_INPUT.makeException();
         }
         return PairKey.of(inputs.get(0), inputs.get(1), inputs.get(2));

@@ -6,20 +6,16 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Random;
-import pairmatching.domain.Crew;
 import pairmatching.domain.pair.Pair;
 
-public class ShuffledMatcher implements MatchStrategy{
-
-    public static final int MAX_PAIR_SIZE = 3;
+public class ShuffledMatcher implements MatchStrategy {
 
     @Override
     public List<Pair> match(List<String> crewNames) {
         List<Pair> result = new ArrayList<>();
         Queue<String> shuffledCrewNames = new LinkedList<>(Randoms.shuffle(crewNames));
 
-        while(shuffledCrewNames.size() > MAX_PAIR_SIZE){
+        while (shuffledCrewNames.size() > Pair.MAX_PAIR_SIZE) {
             List<String> pair = new ArrayList<>();
             pair.add(shuffledCrewNames.poll());
             pair.add(shuffledCrewNames.poll());

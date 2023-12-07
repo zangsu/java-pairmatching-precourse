@@ -30,6 +30,7 @@ public class PairKey {
     public Course getCourse() {
         return course;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

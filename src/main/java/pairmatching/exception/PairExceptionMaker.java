@@ -32,4 +32,4 @@ public enum PairExceptionMaker {
     public String getMessage() {
         return message;
     }
-    }
+}
