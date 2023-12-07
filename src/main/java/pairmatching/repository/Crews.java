@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import pairmatching.domain.Crew;
@@ -12,15 +13,16 @@ import pairmatching.domain.menu.Course;
 import pairmatching.exception.PairExceptionMaker;
 
 public class Crews {
-    public static final List<Crew> crews = new ArrayList<>();
+    public static final List<Crew> backendCrews = new ArrayList<>();
+    public static final List<Crew> frontendCrews = new ArrayList<>();
     public static final String BACKEND_CREW_MD = "src/main/resources/backend-crew.md";
     public static final String FRONTEND_CREW_MD = "src/main/resources/frontend-crew.md";
 
     static {
         try (BufferedReader backendFile = new BufferedReader(new FileReader(BACKEND_CREW_MD));
              BufferedReader frontendFile = new BufferedReader(new FileReader(FRONTEND_CREW_MD))) {
-            backendFile.lines().forEach(line -> crews.add(new Crew(Course.BACKEND, line)));
-            frontendFile.lines().forEach(line -> crews.add(new Crew(Course.FRONTEND, line)));
+            backendFile.lines().forEach(line -> backendCrews.add(new Crew(Course.BACKEND, line)));
+            frontendFile.lines().forEach(line -> frontendCrews.add(new Crew(Course.FRONTEND, line)));
         } catch (FileNotFoundException e) {
             throw PairExceptionMaker.NO_SUCH_FILE.makeException();
         } catch (IOException e) {
@@ -29,8 +31,9 @@ public class Crews {
     }
 
     public static List<Crew> getCrewsOf(Course course) {
-        return crews.stream()
-                .filter(crew -> crew.isCourseOf(course))
-                .collect(Collectors.toList());
+        if (course == Course.BACKEND) {
+            return Collections.unmodifiableList(backendCrews);
+        }
+        return Collections.unmodifiableList(frontendCrews);
     }
 }

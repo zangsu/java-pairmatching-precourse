@@ -6,6 +6,7 @@ public enum PairExceptionMaker {
 
     BLANK_INPUT("입력값이 비어 있습니다."),
     NO_SUCH_MENU("잘못된 메뉴 입력입니다."),
+    NO_SUCH_FILE("존재하지 않는 파일입니다."),
     ;
 
     private final String message;
