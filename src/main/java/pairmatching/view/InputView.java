@@ -3,7 +3,7 @@ package pairmatching.view;
 import java.util.List;
 import pairmatching.domain.menu.Menu;
 import pairmatching.exception.handler.RetryHandler;
-import pairmatching.view.dto.PairKey;
+import pairmatching.view.dto.PairKeyDto;
 import pairmatching.view.io.Printer;
 import pairmatching.view.io.Reader;
 
@@ -27,22 +27,18 @@ public class InputView {
         return Menu.from(reader.getString());
     }
 
-    public PairKey getPairKey(){
-        printer.printMessage("#############################################\n"
-                + "과정: 백엔드 | 프론트엔드\n"
-                + "미션:\n"
-                + "  - 레벨1: 자동차경주 | 로또 | 숫자야구게임\n"
-                + "  - 레벨2: 장바구니 | 결제 | 지하철노선도\n"
-                + "  - 레벨3: \n"
-                + "  - 레벨4: 성능개선 | 배포\n"
-                + "  - 레벨5: \n"
-                + "############################################");
+    public PairKeyDto getPairKey(){
         return RetryHandler.getOrRetry(this::_getPairKey);
     }
 
-    private PairKey _getPairKey() {
+    private PairKeyDto _getPairKey() {
         List<String> inputs = reader.getStringsUsingDelimiter(DELIMITER);
-        return new PairKey(inputs.get(0), inputs.get(1), inputs.get(2));
+        return new PairKeyDto(inputs.get(0), inputs.get(1), inputs.get(2));
     }
 
+    public boolean reMatch() {
+        printer.printMessage("매칭 정보가 있습니다. 다시 매칭하시겠습니까?\n"
+                + "네 | 아니오");
+        return reader.getBoolean("네", "아니오");
+    }
 }

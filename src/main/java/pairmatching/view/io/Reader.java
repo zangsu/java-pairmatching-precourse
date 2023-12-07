@@ -46,8 +46,8 @@ public class Reader {
         }
     }
 
-    private boolean getBoolean(String trueMessage, String falseMessage){
-        String input = Console.readLine();
+    public boolean getBoolean(String trueMessage, String falseMessage){
+        String input = Console.readLine().trim();
         if(trueMessage.equals(input)){
             return true;
         }
