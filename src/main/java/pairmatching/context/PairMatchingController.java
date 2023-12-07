@@ -8,6 +8,7 @@ import pairmatching.domain.matcher.PairMatcher;
 import pairmatching.domain.menu.Menu;
 import pairmatching.domain.pair.Pair;
 import pairmatching.domain.pair.PairKey;
+import pairmatching.domain.pair.MatchedPairs;
 import pairmatching.domain.pair.Pairs;
 import pairmatching.exception.PairExceptionMaker;
 import pairmatching.exception.handler.RetryHandler;
@@ -48,9 +49,9 @@ public class PairMatchingController {
         outputView.printMissions();
         while (true) {
             PairKey pairKey = RetryHandler.getOrRetry(inputView::getPairKey);
-            if (Pairs.notMatched(pairKey) || inputView.reMatch()) {
+            if (MatchedPairs.notMatched(pairKey) || inputView.reMatch()) {
                 retryMatching(pairKey);
-                outputView.printPairs(Pairs.getPairs(pairKey));
+                outputView.printPairs(MatchedPairs.getPairs(pairKey));
                 return;
             }
         }
@@ -58,8 +59,8 @@ public class PairMatchingController {
 
     private void retryMatching(PairKey pairKey) {
         for (int i = 0; i < MAX_REMATCH_COUNT; i++) {
-            List<Pair> matchedPair = pairMatcher.match(pairKey.getCourse());
-            if (Pairs.matchSuccess(pairKey, matchedPair)) {
+            Pairs matchedPair = new Pairs(pairMatcher.match(pairKey.getCourse()));
+            if (MatchedPairs.matchSuccess(pairKey, matchedPair)) {
                 return;
             }
         }
@@ -69,12 +70,12 @@ public class PairMatchingController {
     private void findPair() {
         outputView.printMissions();
         PairKey pairKey = inputView.getPairKey();
-        List<Pair> pairs = Pairs.getPairs(pairKey);
+        Pairs pairs = MatchedPairs.getPairs(pairKey);
         outputView.printPairs(pairs);
     }
 
     private void clear() {
-        Pairs.clear();
+        MatchedPairs.clear();
         outputView.clear();
     }
 }
