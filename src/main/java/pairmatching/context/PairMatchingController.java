@@ -44,20 +44,14 @@ public class PairMatchingController {
     }
 
     private void findPair() {
-        outputView.printMissions();
-        PairKey pairKey = RetryHandler.getOrRetry( () -> {
-            PairKeyDto pairKeyDto = inputView.getPairKey();
-            return PairKey.from(pairKeyDto);
-        });
+        PairKey pairKey = RetryHandler.getOrRetry(inputView::getPairKey);
         List<Pair> pairs = Pairs.getPairs(pairKey);
         outputView.printPairs(pairs);
     }
 
     private void pairMatching() {
-        outputView.printMissions();
-        while(true) {
-            PairKeyDto pairKeyDto = inputView.getPairKey();
-            PairKey pairKey = PairKey.from(pairKeyDto);
+        while(true){
+            PairKey pairKey = RetryHandler.getOrRetry(inputView::getPairKey);
             if(Pairs.notMatched(pairKey) || inputView.reMatch()){
                 retryMatching(pairKey);
                 return;

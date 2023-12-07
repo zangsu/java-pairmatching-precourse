@@ -1,7 +1,13 @@
 package pairmatching;
 
+import pairmatching.context.PairMatchingController;
+import pairmatching.domain.matcher.PairMatcher;
+import pairmatching.domain.matcher.ShuffledMatcher;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO 구현 진행
+        PairMatcher shuffledPairMatcher = new PairMatcher(new ShuffledMatcher());
+        PairMatchingController controller = new PairMatchingController(shuffledPairMatcher);
+        controller.run();
     }
 }

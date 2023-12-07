@@ -1,5 +1,6 @@
 package pairmatching.domain.pair;
 
+import java.util.Objects;
 import pairmatching.domain.Course;
 import pairmatching.domain.Level;
 import pairmatching.domain.Mission;
@@ -16,10 +17,10 @@ public class PairKey {
         this.mission = mission;
     }
 
-    public static PairKey from(PairKeyDto pairKeyDto){
-        Course course = Course.valueOf(pairKeyDto.getCourse());
-        Level level = Level.from(pairKeyDto.getLevel());
-        Mission mission = level.getMission(pairKeyDto.getMission());
+    public static PairKey of(String courseString, String levelString, String missionString){
+        Course course = Course.from(courseString);
+        Level level = Level.from(levelString);
+        Mission mission = level.getMission(missionString);
         return new PairKey(course, level, mission);
     }
 
@@ -33,5 +34,22 @@ public class PairKey {
 
     public Level getLevel() {
         return level;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PairKey pairKey = (PairKey) o;
+        return course == pairKey.course && level == pairKey.level && mission == pairKey.mission;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(course, level, mission);
     }
 }

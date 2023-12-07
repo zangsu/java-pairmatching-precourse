@@ -2,6 +2,7 @@ package pairmatching.view;
 
 import java.util.List;
 import pairmatching.domain.menu.Menu;
+import pairmatching.domain.pair.PairKey;
 import pairmatching.exception.handler.RetryHandler;
 import pairmatching.view.dto.PairKeyDto;
 import pairmatching.view.io.Printer;
@@ -27,13 +28,23 @@ public class InputView {
         return Menu.from(reader.getString());
     }
 
-    public PairKeyDto getPairKey(){
+    public PairKey getPairKey(){
+        printer.printMessage("#############################################\n"
+            + "과정: 백엔드 | 프론트엔드\n"
+            + "미션:\n"
+            + "  - 레벨1: 자동차경주 | 로또 | 숫자야구게임\n"
+            + "  - 레벨2: 장바구니 | 결제 | 지하철노선도\n"
+            + "  - 레벨3: \n"
+            + "  - 레벨4: 성능개선 | 배포\n"
+            + "  - 레벨5: \n"
+            + "############################################");
         return RetryHandler.getOrRetry(this::_getPairKey);
     }
 
-    private PairKeyDto _getPairKey() {
+    private PairKey _getPairKey() {
         List<String> inputs = reader.getStringsUsingDelimiter(DELIMITER);
-        return new PairKeyDto(inputs.get(0), inputs.get(1), inputs.get(2));
+        //todo 길이 확인
+        return PairKey.of(inputs.get(0), inputs.get(1), inputs.get(2));
     }
 
     public boolean reMatch() {
