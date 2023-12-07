@@ -10,8 +10,7 @@ public enum Menu {
     PAIR_MATCHING("1"),
     FIND_PAIR("2"),
     CLEAR("3"),
-    EXIT("Q")
-    ;
+    EXIT("Q");
 
     private static final Map<String, Menu> cachedMenu = Arrays.stream(values())
             .collect(Collectors.toMap(menu -> menu.input, menu -> menu));
@@ -21,7 +20,7 @@ public enum Menu {
         this.input = input;
     }
 
-    public static Menu from(String input){
+    public static Menu from(String input) {
         return Optional.ofNullable(cachedMenu.get(input))
                 .orElseThrow(PairExceptionMaker.NO_SUCH_MENU::makeException);
     }

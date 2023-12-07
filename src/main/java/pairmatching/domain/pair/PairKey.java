@@ -4,7 +4,6 @@ import java.util.Objects;
 import pairmatching.domain.Course;
 import pairmatching.domain.Level;
 import pairmatching.domain.Mission;
-import pairmatching.view.dto.PairKeyDto;
 
 public class PairKey {
     private final Course course;
@@ -17,25 +16,20 @@ public class PairKey {
         this.mission = mission;
     }
 
-    public static PairKey of(String courseString, String levelString, String missionString){
+    public static PairKey of(String courseString, String levelString, String missionString) {
         Course course = Course.from(courseString);
         Level level = Level.from(levelString);
         Mission mission = level.getMission(missionString);
         return new PairKey(course, level, mission);
     }
 
-    public boolean isLevelOf(Level level){
-        return this.level == level;
+    public boolean isSameLevel(PairKey pairKey) {
+        return this.level == pairKey.level;
     }
 
     public Course getCourse() {
         return course;
     }
-
-    public Level getLevel() {
-        return level;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {

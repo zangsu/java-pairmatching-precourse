@@ -1,6 +1,5 @@
 package pairmatching.domain.pair;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,9 +15,9 @@ public class Pairs {
         return !pairs.containsKey(pairKey);
     }
 
-    public static boolean matching(PairKey pairKey, List<Pair> matchedPair) {
+    public static boolean matchSuccess(PairKey pairKey, List<Pair> matchedPair) {
         List<Pair> sameLevelPairs = pairs.keySet().stream()
-                .filter(key -> key.isLevelOf(pairKey.getLevel()))
+                .filter(key -> key.isSameLevel(pairKey))
                 .map(pairs::get)
                 .flatMap(List::stream)
                 .collect(Collectors.toList());

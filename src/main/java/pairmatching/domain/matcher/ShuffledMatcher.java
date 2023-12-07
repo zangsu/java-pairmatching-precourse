@@ -11,12 +11,15 @@ import pairmatching.domain.Crew;
 import pairmatching.domain.pair.Pair;
 
 public class ShuffledMatcher implements MatchStrategy{
+
+    public static final int MAX_PAIR_SIZE = 3;
+
     @Override
     public List<Pair> match(List<String> crewNames) {
         List<Pair> result = new ArrayList<>();
         Queue<String> shuffledCrewNames = new LinkedList<>(Randoms.shuffle(crewNames));
 
-        while(shuffledCrewNames.size() > 3){
+        while(shuffledCrewNames.size() > MAX_PAIR_SIZE){
             List<String> pair = new ArrayList<>();
             pair.add(shuffledCrewNames.poll());
             pair.add(shuffledCrewNames.poll());

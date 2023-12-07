@@ -16,7 +16,7 @@ public enum Level {
 
     private static final Map<String, Level> cachedLevel = Arrays.stream(values())
             .collect(Collectors.toMap(level -> level.name, level -> level));
-    private String name;
+    private final String name;
     private final List<Mission> missions;
 
     Level(String name, Mission... missions) {
@@ -31,7 +31,7 @@ public enum Level {
 
     public Mission getMission(String missionName){
         return missions.stream()
-                .filter(mission -> mission.getMissionName().equals(missionName))
+                .filter(mission -> mission.isNameOf(missionName))
                 .findFirst()
                 .orElseThrow(PairExceptionMaker.NO_SUCH_MISSION::makeException);
     }

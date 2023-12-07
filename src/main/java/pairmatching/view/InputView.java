@@ -5,12 +5,10 @@ import pairmatching.domain.menu.Menu;
 import pairmatching.domain.pair.PairKey;
 import pairmatching.exception.PairExceptionMaker;
 import pairmatching.exception.handler.RetryHandler;
-import pairmatching.view.dto.PairKeyDto;
 import pairmatching.view.io.Printer;
 import pairmatching.view.io.Reader;
 
 public class InputView {
-
 
     public static final String DELIMITER = ",";
     private final Reader reader = new Reader();

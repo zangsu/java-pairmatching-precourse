@@ -22,7 +22,7 @@ public enum Mission {
         this.missionName = missionName;
     }
 
-    public String getMissionName() {
-        return missionName;
+    public boolean isNameOf(String missionName) {
+        return this.missionName.equals(missionName);
     }
 }

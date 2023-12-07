@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import pairmatching.domain.Course;
-import pairmatching.domain.Crew;
 import pairmatching.exception.PairExceptionMaker;
 
 public class Pair {
@@ -19,7 +17,7 @@ public class Pair {
     }
 
     private void validateSize(Collection<String> crews) {
-        if(crews.size() < MIN_CREW_SIZE || crews.size() > MAX_CREW_SIZE) {
+        if (crews.size() < MIN_CREW_SIZE || crews.size() > MAX_CREW_SIZE) {
             throw PairExceptionMaker.INVALID_CREW_SIZE.makeException();
         }
     }

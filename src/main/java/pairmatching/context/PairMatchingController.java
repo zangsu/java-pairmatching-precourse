@@ -3,6 +3,7 @@ package pairmatching.context;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import pairmatching.domain.matcher.PairMatcher;
 import pairmatching.domain.menu.Menu;
 import pairmatching.domain.pair.Pair;
@@ -14,11 +15,11 @@ import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
 
 public class PairMatchingController {
+    public static final int MAX_REMATCH_COUNT = 3;
+    private final Map<Menu, Runnable> function = new HashMap<>();
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
     private final PairMatcher pairMatcher;
-
-    private static final Map<Menu, Runnable> function = new HashMap<>();
 
     public PairMatchingController(PairMatcher pairMatcher) {
         this.pairMatcher = pairMatcher;
@@ -37,7 +38,9 @@ public class PairMatchingController {
             if (menu == Menu.EXIT) {
                 return;
             }
-            function.get(menu).run();
+            Optional.ofNullable(function.get(menu))
+                    .orElseThrow(PairExceptionMaker.CANT_RUN_MENU::makeException)
+                    .run();
         }
     }
 
@@ -54,9 +57,9 @@ public class PairMatchingController {
     }
 
     private void retryMatching(PairKey pairKey) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < MAX_REMATCH_COUNT; i++) {
             List<Pair> matchedPair = pairMatcher.match(pairKey.getCourse());
-            if (Pairs.matching(pairKey, matchedPair)) {
+            if (Pairs.matchSuccess(pairKey, matchedPair)) {
                 return;
             }
         }
