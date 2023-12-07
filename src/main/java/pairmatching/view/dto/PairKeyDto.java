@@ -1,11 +1,11 @@
 package pairmatching.view.dto;
 
-public class PairKey {
+public class PairKeyDto {
     private final String Course;
     private final String Level;
     private final String mission;
 
-    public PairKey(String course, String level, String mission) {
+    public PairKeyDto(String course, String level, String mission) {
         Course = course;
         Level = level;
         this.mission = mission;

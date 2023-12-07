@@ -7,9 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import pairmatching.domain.Crew;
-import pairmatching.domain.menu.Course;
+import pairmatching.domain.Course;
 import pairmatching.exception.PairExceptionMaker;
 
 public class Crews {

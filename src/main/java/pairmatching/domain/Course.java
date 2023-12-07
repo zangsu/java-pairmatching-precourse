@@ -1,4 +1,4 @@
-package pairmatching.domain.menu;
+package pairmatching.domain;
 
 public enum Course {
     BACKEND("백엔드"),
