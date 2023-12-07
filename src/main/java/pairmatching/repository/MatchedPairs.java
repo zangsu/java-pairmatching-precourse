@@ -11,7 +11,6 @@ public class MatchedPairs {
     private static final Map<PairKey, Pairs> pairs = new HashMap<>();
 
     private MatchedPairs() {
-
     }
 
     public static boolean isNotMatched(PairKey pairKey) {

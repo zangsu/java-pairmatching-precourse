@@ -11,6 +11,7 @@ import pairmatching.view.io.Reader;
 public class InputView {
 
     public static final String DELIMITER = ",";
+    public static final int MISSION_INFO_SIZE = 3;
     private final Reader reader = new Reader();
     private final Printer printer = new Printer();
 
@@ -38,7 +39,7 @@ public class InputView {
                 + "ex) 백엔드, 레벨1, 자동차경주");
         List<String> inputs = reader.getStringsUsingDelimiter(DELIMITER);
         printer.printMessage("");
-        if (inputs.size() != 3) {
+        if (inputs.size() != MISSION_INFO_SIZE) {
             throw PairExceptionMaker.INVALID_INPUT.makeException();
         }
         return PairKey.of(inputs.get(0), inputs.get(1), inputs.get(2));
