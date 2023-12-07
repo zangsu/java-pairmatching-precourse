@@ -3,6 +3,7 @@ package pairmatching.view;
 import java.util.List;
 import pairmatching.domain.menu.Menu;
 import pairmatching.domain.pair.PairKey;
+import pairmatching.exception.PairExceptionMaker;
 import pairmatching.exception.handler.RetryHandler;
 import pairmatching.view.dto.PairKeyDto;
 import pairmatching.view.io.Printer;
@@ -31,15 +32,6 @@ public class InputView {
     }
 
     public PairKey getPairKey(){
-        printer.printMessage("#############################################\n"
-            + "과정: 백엔드 | 프론트엔드\n"
-            + "미션:\n"
-            + "  - 레벨1: 자동차경주 | 로또 | 숫자야구게임\n"
-            + "  - 레벨2: 장바구니 | 결제 | 지하철노선도\n"
-            + "  - 레벨3: \n"
-            + "  - 레벨4: 성능개선 | 배포\n"
-            + "  - 레벨5: \n"
-            + "############################################");
         return RetryHandler.getOrRetry(this::_getPairKey);
     }
 
@@ -48,15 +40,19 @@ public class InputView {
                 + "ex) 백엔드, 레벨1, 자동차경주");
         List<String> inputs = reader.getStringsUsingDelimiter(DELIMITER);
         printer.printMessage("");
-        //todo 길이 확인
+        if(inputs.size() != 3){
+            throw PairExceptionMaker.INVALID_INPUT.makeException();
+        }
         return PairKey.of(inputs.get(0), inputs.get(1), inputs.get(2));
     }
 
     public boolean reMatch() {
-        printer.printMessage("매칭 정보가 있습니다. 다시 매칭하시겠습니까?\n"
-                + "네 | 아니오");
-        boolean restart = reader.getBoolean("네", "아니오");
-        printer.printMessage("");
-        return restart;
+        return RetryHandler.getOrRetry(() -> {
+            printer.printMessage("매칭 정보가 있습니다. 다시 매칭하시겠습니까?\n"
+                    + "네 | 아니오");
+            boolean restart = reader.getBoolean("네", "아니오");
+            printer.printMessage("");
+            return restart;
+        });
     }
 }

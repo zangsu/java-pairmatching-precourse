@@ -13,7 +13,8 @@ public enum PairExceptionMaker {
     PAIR_CREW_COURSE_DIFFERENT("크루들의 코스가 다릅니다."),
     FAIL_TO_MATCHING("매칭에 실패했습니다."),
     NOT_MATCHED_PAIR("매칭 이력이 없습니다."),
-    INVALID_COURSE("존재하지 않는 코스입니다.");
+    INVALID_COURSE("존재하지 않는 코스입니다."),
+    INVALID_INPUT("입력 형식이 잘못되었습니다.");
 
     private final String message;
     private final IllegalArgumentException exception;

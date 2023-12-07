@@ -38,4 +38,8 @@ public class Pairs {
         return Optional.ofNullable(pairs.get(pairKey))
                 .orElseThrow(PairExceptionMaker.NOT_MATCHED_PAIR::makeException);
     }
+
+    public static void clear() {
+        pairs.clear();
+    }
 }
