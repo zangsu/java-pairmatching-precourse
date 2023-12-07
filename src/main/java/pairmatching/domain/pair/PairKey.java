@@ -30,4 +30,8 @@ public class PairKey {
     public Course getCourse() {
         return course;
     }
+
+    public Level getLevel() {
+        return level;
+    }
 }

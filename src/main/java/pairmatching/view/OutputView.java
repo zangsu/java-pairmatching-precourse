@@ -1,6 +1,7 @@
 package pairmatching.view;
 
 import java.util.List;
+import pairmatching.domain.pair.Pair;
 import pairmatching.view.io.Printer;
 
 public class OutputView {
@@ -29,5 +30,8 @@ public class OutputView {
 
     private <T> void printListUsingFormat(List<T> list){
         list.forEach(t -> printer.printMessageUsingFormat("FORMAT", 1, 2, 3));
+    }
+
+    public void printPairs(List<Pair> pairs) {
     }
 }

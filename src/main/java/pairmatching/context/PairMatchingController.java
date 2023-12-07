@@ -6,6 +6,7 @@ import pairmatching.domain.menu.Menu;
 import pairmatching.domain.pair.Pair;
 import pairmatching.domain.pair.PairKey;
 import pairmatching.domain.pair.Pairs;
+import pairmatching.exception.PairExceptionMaker;
 import pairmatching.exception.handler.RetryHandler;
 import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
@@ -21,21 +22,35 @@ public class PairMatchingController {
     }
 
     public void run(){
+        RetryHandler.runOrRetry(this::_run);
+    }
+
+    public void _run(){
         while(true){
             Menu menu = inputView.getMenu();
             if (menu == Menu.EXIT) {
-                break;
+                return;
             }
             if (menu == Menu.PAIR_MATCHING){
                 RetryHandler.runOrRetry(this::pairMatching);
             }
             if (menu == Menu.FIND_PAIR){
-                //findPair();
+                findPair();
             }
             if (menu == Menu.CLEAR){
                 //clear();
             }
         }
+    }
+
+    private void findPair() {
+        outputView.printMissions();
+        PairKey pairKey = RetryHandler.getOrRetry( () -> {
+            PairKeyDto pairKeyDto = inputView.getPairKey();
+            return PairKey.from(pairKeyDto);
+        });
+        List<Pair> pairs = Pairs.getPairs(pairKey);
+        outputView.printPairs(pairs);
     }
 
     private void pairMatching() {
@@ -44,10 +59,19 @@ public class PairMatchingController {
             PairKeyDto pairKeyDto = inputView.getPairKey();
             PairKey pairKey = PairKey.from(pairKeyDto);
             if(Pairs.notMatched(pairKey) || inputView.reMatch()){
-                List<Pair> matchedPair = pairMatcher.match(pairKey.getCourse());
-                Pairs.matching(pairKey, matchedPair);
+                retryMatching(pairKey);
                 return;
             }
         }
+    }
+
+    private void retryMatching(PairKey pairKey) {
+        for (int i = 0; i < 3; i++) {
+            List<Pair> matchedPair = pairMatcher.match(pairKey.getCourse());
+            if(Pairs.matching(pairKey, matchedPair)){
+                return;
+            }
+        }
+        throw PairExceptionMaker.FAIL_TO_MATCHING.makeException();
     }
 }
