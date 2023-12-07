@@ -27,4 +27,7 @@ public class PairKey {
         return this.level == level;
     }
 
+    public Course getCourse() {
+        return course;
+    }
 }

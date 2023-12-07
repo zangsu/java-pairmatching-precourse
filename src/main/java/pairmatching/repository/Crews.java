@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import pairmatching.domain.Crew;
 import pairmatching.domain.Course;
 import pairmatching.exception.PairExceptionMaker;
@@ -29,10 +30,14 @@ public class Crews {
         }
     }
 
-    public static List<Crew> getCrewsOf(Course course) {
+    public static List<String> getCrewNamesOf(Course course) {
         if (course == Course.BACKEND) {
-            return Collections.unmodifiableList(backendCrews);
+            return backendCrews.stream()
+                    .map(Crew::getName)
+                    .collect(Collectors.toList());
         }
-        return Collections.unmodifiableList(frontendCrews);
+        return frontendCrews.stream()
+                .map(Crew::getName)
+                .collect(Collectors.toList());
     }
 }
