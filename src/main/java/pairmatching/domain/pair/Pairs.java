@@ -22,9 +22,7 @@ public class Pairs {
                 .map(pairs::get)
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
-        System.out.println("저장");
         if (duplicated(matchedPair, sameLevelPairs)) {
-            System.out.println("중복");
             return false;
         }
         pairs.put(pairKey, matchedPair);

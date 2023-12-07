@@ -16,10 +16,12 @@ public class OutputView {
         printer.printMessage("");
     }
 
-    private <T> void printListUsingFormat(List<T> list){
-        list.forEach(t -> printer.printMessageUsingFormat("FORMAT", 1, 2, 3));
-    }
-
     public void printPairs(List<Pair> pairs) {
+        printer.printMessage("페어 매칭 결과입니다.");
+        pairs.stream()
+                .map(Pair::getCrewNames)
+                .map(names -> String.join(" : ", names))
+                .forEach(printer::printMessage);
+        newLine();
     }
 }

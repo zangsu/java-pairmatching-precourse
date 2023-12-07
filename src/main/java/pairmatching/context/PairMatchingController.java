@@ -32,7 +32,7 @@ public class PairMatchingController {
                 return;
             }
             if (menu == Menu.PAIR_MATCHING){
-                RetryHandler.runOrRetry(this::pairMatching);
+                this.pairMatching();
             }
             if (menu == Menu.FIND_PAIR){
                 findPair();
@@ -54,6 +54,7 @@ public class PairMatchingController {
             PairKey pairKey = RetryHandler.getOrRetry(inputView::getPairKey);
             if(Pairs.notMatched(pairKey) || inputView.reMatch()){
                 retryMatching(pairKey);
+                outputView.printPairs(Pairs.getPairs(pairKey));
                 return;
             }
         }

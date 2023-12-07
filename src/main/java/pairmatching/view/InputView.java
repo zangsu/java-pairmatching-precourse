@@ -25,7 +25,9 @@ public class InputView {
     }
 
     private Menu _getMenu(){
-        return Menu.from(reader.getString());
+        Menu menu = Menu.from(reader.getString());
+        printer.printMessage("");
+        return menu;
     }
 
     public PairKey getPairKey(){
@@ -42,7 +44,10 @@ public class InputView {
     }
 
     private PairKey _getPairKey() {
+        printer.printMessage("과정, 레벨, 미션을 선택하세요.\n"
+                + "ex) 백엔드, 레벨1, 자동차경주");
         List<String> inputs = reader.getStringsUsingDelimiter(DELIMITER);
+        printer.printMessage("");
         //todo 길이 확인
         return PairKey.of(inputs.get(0), inputs.get(1), inputs.get(2));
     }
@@ -50,6 +55,8 @@ public class InputView {
     public boolean reMatch() {
         printer.printMessage("매칭 정보가 있습니다. 다시 매칭하시겠습니까?\n"
                 + "네 | 아니오");
-        return reader.getBoolean("네", "아니오");
+        boolean restart = reader.getBoolean("네", "아니오");
+        printer.printMessage("");
+        return restart;
     }
 }
