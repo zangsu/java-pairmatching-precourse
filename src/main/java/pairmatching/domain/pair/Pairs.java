@@ -10,13 +10,13 @@ public class Pairs {
         this.pairs = pairs;
     }
 
-    public boolean contains(Pair pair) {
-        return pairs.contains(pair);
-    }
-
     public boolean hasDuplicatedPair(Pairs other) {
         return pairs.stream()
                 .anyMatch(other::contains);
+    }
+
+    private boolean contains(Pair pair) {
+        return pairs.contains(pair);
     }
 
     public List<List<String>> getPairNames() {

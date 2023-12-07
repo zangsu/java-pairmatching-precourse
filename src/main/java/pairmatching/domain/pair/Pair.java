@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import pairmatching.exception.PairExceptionMaker;
 
 public class Pair {
@@ -38,5 +39,22 @@ public class Pair {
 
     public List<String> getCrewNames() {
         return Collections.unmodifiableList(crewNames);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Pair pair = (Pair) o;
+        return Objects.equals(crewNames, pair.crewNames);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(crewNames);
     }
 }
