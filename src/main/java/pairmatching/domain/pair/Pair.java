@@ -12,8 +12,22 @@ public class Pair {
     private final List<String> crewNames;
 
     public Pair(Collection<String> crewNames) {
-        validateSize(crewNames);
+        validatePairs(crewNames);
         this.crewNames = new ArrayList<>(crewNames);
+    }
+
+    private void validatePairs(Collection<String> crewNames) {
+        validateDuplicate(crewNames);
+        validateSize(crewNames);
+    }
+
+    private void validateDuplicate(Collection<String> crewNames) {
+        int distinctCount = (int) crewNames.stream()
+                .distinct()
+                .count();
+        if (distinctCount != crewNames.size()) {
+            throw PairExceptionMaker.DUPLICATED_CREW_NAME.makeException();
+        }
     }
 
     private void validateSize(Collection<String> crews) {

@@ -15,7 +15,8 @@ public enum PairExceptionMaker {
     NOT_MATCHED_PAIR("매칭 이력이 없습니다."),
     INVALID_COURSE("존재하지 않는 코스입니다."),
     INVALID_INPUT("입력 형식이 잘못되었습니다."),
-    CANT_RUN_MENU("실행할 수 없는 메뉴 입니다.");
+    CANT_RUN_MENU("실행할 수 없는 메뉴 입니다."),
+    DUPLICATED_CREW_NAME("중복된 크루 이름입니다.");
 
     private final String message;
     private final IllegalArgumentException exception;
